@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+        body{
+            background: url("");
+        }*/
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        label,h1{
+            color: white;
+        }
+        button{
+            width: 200px;
+        }
+        #agregarCampo{
+            margin-top: 10px;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+        }
+        #eliminarCampo{
+            margin-top: 50px;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+        }
+        #moverCampo{
+            margin-top: 95px;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+        }
+        form>div{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 10px;
+            margin: 10px auto;
+        }
+        h1{
+            text-align: center;
+        }
+        body{
+            background: url('f960x540-1427_75502_0.jpg');
+        }
+    </style>
+</head>
+<body>
+    <h1 >LISTA DE TAREAS</h1>
+    
+    <form id="miFormulario" ></form>
+
+    <button id="agregarCampo" onclick="agregarCampo()">Agregar Una Tarea</button>
+    <button id="eliminarCampo" onclick="eliminarCampo()">Elimina Una Tarea</button>
+    <button id="moverCampo" onclick="moverCampo()">Cambia de Posicion</button>
+
+    <script>
+        let contador =0
+        function aleatorio(inferior, superior) {
+            let numPosibilidades = superior - inferior;
+            let aleatorio = Math.random() * numPosibilidades;
+            aleatorio = Math.floor(aleatorio);
+            return parseInt(inferior) + aleatorio;
+        }
+        function colorAleatorio() {
+            let hexadecimal = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
+            let color_aleatorio = "#";
+            for (i = 0; i < 6; i++) {
+            let posarray = aleatorio(0, hexadecimal.length)
+            color_aleatorio += hexadecimal[posarray]
+            }
+            return color_aleatorio
+        }
+        function agregarCampo(){
+            contador++
+            if(contador==2){
+                alert('CLICK SOBRE EL CHECKBOX PARA PODER MOVER O CAMBIAR ORDEN')
+            }
+            const DivForm=document.getElementById('miFormulario').getElementsByTagName('div')
+            const formulario=document.getElementById('miFormulario')
+            
+            /* creo y agrego checkbox y text area*/
+            const checkBox = document.createElement('input')
+            checkBox.id='checkbox'+ DivForm.length
+            checkBox.type='checkbox'
+
+            const TextArea = document.createElement('textarea')
+            TextArea.name='campo'+ DivForm.length
+
+            /*creo y agrego el div*/
+            const Div = document.createElement('div')
+            Div.appendChild(checkBox)
+            Div.appendChild(TextArea)
+            Div.id='#'+ DivForm.length
+          
+           
+            formulario.appendChild(Div)
+        
+        
+        }
+        function eliminarCampo(){
+            const formulario=document.getElementById('miFormulario');
+            formulario.removeChild(formulario.lastElementChild);
+            
+        }
+        function moverCampo(){
+            var checkbox = document.getElementsByTagName('input');
+            const lista = document.getElementById('miFormulario');
+            const elementos = lista.childNodes;
+            console.log(elementos)
+
+            for(let j =0; j<= checkbox.length;j++)
+                {
+                
+                let checko = checkbox[j].checked;
+                        if(checko){
+                            let primerElemento = elementos[j];
+                            console.log(primerElemento)
+
+                        // Mover el primer elemento al final de la lista
+                            lista.insertBefore(primerElemento, elementos[elementos.length]);
+
+                          }
+                }
+            
+               
+
+
+        }
+
+
+        
+    </script>
+</body>
+</html>
